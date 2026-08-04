@@ -3,19 +3,36 @@ package com.jonatas.apitabelatarifaria.entity;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import com.jonatas.apitabelatarifaria.dvo.DetalhamentoConsumoVO;
 import com.jonatas.apitabelatarifaria.infra.error.ValorInicialDaFaixaDeConsumoEhMaiorQueOValorFinalException;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ColumnResult;
+import jakarta.persistence.ConstructorResult;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SqlResultSetMapping;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "faixas_consumo")
+@SqlResultSetMapping(
+    name = "DetalhamentoConsumoMapping",
+    classes = @ConstructorResult(
+        targetClass = DetalhamentoConsumoVO.class,
+        columns = {
+            @ColumnResult(name = "faixa_inicial", type = Integer.class),
+            @ColumnResult(name = "faixa_final", type = Integer.class),
+            @ColumnResult(name = "cobrado_por_metro_cubico", type = Integer.class),
+            @ColumnResult(name = "valor_unitario", type = BigDecimal.class),
+            @ColumnResult(name = "subtotal", type = BigDecimal.class)
+        }
+    )
+)
 public class FaixaConsumo implements Comparable<FaixaConsumo>{
 
     @Id
