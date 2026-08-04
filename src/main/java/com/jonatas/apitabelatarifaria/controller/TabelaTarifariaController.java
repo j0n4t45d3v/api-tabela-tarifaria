@@ -3,6 +3,8 @@ package com.jonatas.apitabelatarifaria.controller;
 import com.jonatas.apitabelatarifaria.dto.CriarTabelaTarifariaRequest;
 import com.jonatas.apitabelatarifaria.service.CriarTabelaTarifariaFachadaService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +23,7 @@ public class TabelaTarifariaController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> criar(@RequestBody CriarTabelaTarifariaRequest request) {
+    public ResponseEntity<Void> criar(@RequestBody @Valid CriarTabelaTarifariaRequest request) {
         var tabelaTarifaria = this.criarTabelaTarifariaFachadaService.executar(request);
         var localizacao = UriComponentsBuilder
                 .fromPath("/tabelas-tarifarias/{id}")
