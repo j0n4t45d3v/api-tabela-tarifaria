@@ -1,10 +1,12 @@
 package com.jonatas.apitabelatarifaria.service;
 
-import com.jonatas.apitabelatarifaria.entity.TabelaTarifaria;
-import com.jonatas.apitabelatarifaria.repository.TabelaTarifariaRepository;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import com.jonatas.apitabelatarifaria.entity.TabelaTarifaria;
+import com.jonatas.apitabelatarifaria.infra.error.TabelaTarifariaNaoEncontradaException;
+import com.jonatas.apitabelatarifaria.repository.TabelaTarifariaRepository;
 
 @Service
 public class TabelaTarifariaService {
@@ -21,6 +23,13 @@ public class TabelaTarifariaService {
 
     public Optional<TabelaTarifaria> buscarTabelaTarifaria(Long id) {
         return this.tabelaTarifariaRepository.findById(id);
+    }
+
+    public void deletarPeloId(Long id) {
+        if(!this.tabelaTarifariaRepository.existsById(id)) {
+            throw new TabelaTarifariaNaoEncontradaException();
+        }
+        this.tabelaTarifariaRepository.deleteById(id);
     }
 
 }
