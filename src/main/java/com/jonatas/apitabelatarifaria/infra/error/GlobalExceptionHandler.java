@@ -45,6 +45,18 @@ public class GlobalExceptionHandler {
         .body(erro);
     } 
 
+    @ExceptionHandler({ViolacaoDaRegraNegocioException.class})
+    public ResponseEntity<ErrorResponse> businessExceptionHandler(ViolacaoDaRegraNegocioException ex) {
+        var erro = new ErrorResponse(
+            "VIOLACAO_DA_REGRA_DE_NEGOCIO",
+            ex.getMessage(),
+            null
+        );
+        return ResponseEntity
+        .status(ex.getStatusCode())
+        .body(erro);
+    }
+
     public ResponseEntity<Void> fallbackHandler(Exception ex) {
         log.error("Erro inesperado.", ex);
         return ResponseEntity.internalServerError().build();
