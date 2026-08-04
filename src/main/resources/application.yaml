@@ -30,3 +30,7 @@ spring:
       enabled: true
       poll-interval: 1s
       quiet-period: 500ms
+
+server:
+  servlet:
+    context-path: /api
