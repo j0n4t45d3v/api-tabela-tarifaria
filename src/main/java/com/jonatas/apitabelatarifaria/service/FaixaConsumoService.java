@@ -9,6 +9,7 @@ import com.jonatas.apitabelatarifaria.dto.FaixaConsumoRequest;
 import com.jonatas.apitabelatarifaria.entity.CategoriaConsumidor;
 import com.jonatas.apitabelatarifaria.entity.FaixaConsumo;
 import com.jonatas.apitabelatarifaria.entity.TabelaTarifaria;
+import com.jonatas.apitabelatarifaria.infra.error.NaoInformadoFaixaDeAberturaException;
 import com.jonatas.apitabelatarifaria.repository.FaixaConsumoRepository;
 
 @Service
@@ -26,18 +27,26 @@ public class FaixaConsumoService {
         CategoriaConsumidor categoriaConsumidor,
         TabelaTarifaria tabelaTarifaria
     ) {
+        if (!existeFaixaDeAbertura(faixasConsumo)) {
+            throw new NaoInformadoFaixaDeAberturaException();
+        }
         var faixas = faixasConsumo
         .stream()
-        .map(f -> new FaixaConsumo(
-            null, 
-            f.de(),
-            f.ate(),
-            f.valorUnitario(),
-            categoriaConsumidor,
-            tabelaTarifaria
-        ))
+        .map(f -> {
+            return FaixaConsumo.of(
+                f.de(), 
+                f.ate(), 
+                f.valorUnitario(),
+                categoriaConsumidor,
+                tabelaTarifaria
+            );
+        })
         .toList();
         this.faixaConsumoRepository.saveAll(faixas);
+    }
+
+    private boolean existeFaixaDeAbertura(Set<FaixaConsumoRequest> faixas) {
+        return faixas.stream().anyMatch(fr -> fr.de() == 0);
     }
 
 }
