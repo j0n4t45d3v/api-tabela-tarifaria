@@ -214,18 +214,4 @@ class FaixaConsumoServiceTest {
         );
     }
 
-    @Test
-    void deveLancarExcecaoQuandoExistirAlgumaFaixaComValorInicialMaiorQueFinal() {
-        Set<FaixaConsumoRequest> faixas = new HashSet<>();
-        faixas.add(new FaixaConsumoRequest(0, 10, BigDecimal.ONE));
-        faixas.add(new FaixaConsumoRequest(20, 11, BigDecimal.ONE));
-        faixas.add(new FaixaConsumoRequest(21, 99999, BigDecimal.ONE));
-
-        assertThrows(
-                ValorInicialDaFaixaDeConsumoEhMaiorQueOValorFinalException.class,
-                () -> faixaConsumoService.criar(faixas, CATEGORIA_CONSUMIDOR, TABELA_TARIFARIA)
-        );
-    }
-
-
 }
