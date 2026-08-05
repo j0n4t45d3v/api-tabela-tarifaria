@@ -24,7 +24,7 @@ public record CriarTabelaTarifariaRequest(
     Set<TarifaCategoriaConsumoRequest> tarifas
 
 ) {
-    record Vigencia(
+    public record Vigencia(
 
         @NotNull(message = "Informe 'vigente.de' para dizer quando irá entrar em rigor a tabela tarifaria.")
         LocalDate de,
