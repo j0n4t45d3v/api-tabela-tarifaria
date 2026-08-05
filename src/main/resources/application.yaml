@@ -3,9 +3,9 @@ spring:
     name: api-tabela-tarifaria
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/db_tabela_tarifaria
-    username: postgres
-    password: senhasecreta
+    url: ${SPRING_DB_JDBC_URL:jdbc:postgresql://localhost:5432/db_tabela_tarifaria}
+    username: ${SPRING_DB_USERNAME:postgres}
+    password: ${SPRING_DB_PASSWORD:senhasecreta}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -32,5 +32,6 @@ spring:
       quiet-period: 500ms
 
 server:
+  port: ${SERVER_PORT:8080}
   servlet:
     context-path: /api
