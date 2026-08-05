@@ -7,7 +7,7 @@ import jakarta.validation.constraints.*;
 public record FaixaConsumoRequest(
 
     @NotNull(message = "Informe 'faixas[].de' da faixa de consumo.")
-    @Positive(message = "Informe somente valores positivos")
+    @Min(value = 0, message = "Informe somente valores positivos e zero")
     @Max(value = 99999, message = "Valor máximo permitido é 99999")
     Integer de,
 
