@@ -1,4 +1,23 @@
 services:
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+
+    environment:
+      SPRING_DB_JDBC_URL: jdbc:postgresql://database:5432/db_tabela_tarifaria
+      SPRING_DB_USERNAME: postgres
+      SPRING_DB_PASSWORD: senhasecreta
+      JAVA_TOOLS_OPTIONS: >
+        -XX:InitialRAMPercentage=25
+        -XX:MaxRAMPercentage=65 
+    ports:
+      - "8080:8080"
+    networks:
+      - appnet
+    depends_on:
+      - database
+
   database:
     image: postgres:17-alpine
     environment:
@@ -9,6 +28,12 @@ services:
       - "5432:5432"
     volumes:
       - data-db:/var/lib/postgresql/data
+    networks:
+      - appnet
 
 volumes:
   data-db:
+
+networks:
+  appnet:
+    driver: bridge
