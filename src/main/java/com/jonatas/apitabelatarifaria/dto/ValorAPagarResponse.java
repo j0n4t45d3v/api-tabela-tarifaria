@@ -1,9 +1,10 @@
 package com.jonatas.apitabelatarifaria.dto;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 import com.jonatas.apitabelatarifaria.dvo.DetalhamentoConsumoVO;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.List;
 
 public record ValorAPagarResponse(
     String categoria,
@@ -11,6 +12,11 @@ public record ValorAPagarResponse(
     BigDecimal valorTotal,
     List<Detalhamento> detalhamento
 ) {
+
+    public ValorAPagarResponse {
+        valorTotal = valorTotal.setScale(2, RoundingMode.HALF_UP);
+    }
+
     public record Detalhamento(
         Faixa faixa,
         Integer m3Cobrados,
@@ -22,8 +28,8 @@ public record ValorAPagarResponse(
             return new Detalhamento(
                 new Faixa(consumoVO.faixaInicial(), consumoVO.faixaFinal()),
                 consumoVO.cobradoPorMetroCubico(),
-                consumoVO.valorUnitario(),
-                consumoVO.subtotal()
+                consumoVO.valorUnitario().setScale(2, RoundingMode.HALF_UP),
+                consumoVO.subtotal().setScale(2, RoundingMode.HALF_UP)
             );
         }
 
