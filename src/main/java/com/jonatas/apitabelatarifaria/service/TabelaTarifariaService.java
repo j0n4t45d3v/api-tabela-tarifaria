@@ -1,12 +1,13 @@
 package com.jonatas.apitabelatarifaria.service;
 
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
 import com.jonatas.apitabelatarifaria.entity.TabelaTarifaria;
+import com.jonatas.apitabelatarifaria.infra.error.PeriodoDeVigenciaInformadoConflitaComdeOutraTabelaTarifariaException;
 import com.jonatas.apitabelatarifaria.infra.error.TabelaTarifariaNaoEncontradaException;
 import com.jonatas.apitabelatarifaria.repository.TabelaTarifariaRepository;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 public class TabelaTarifariaService {
@@ -18,7 +19,15 @@ public class TabelaTarifariaService {
     }
 
     public TabelaTarifaria criar(TabelaTarifaria tabelaTarifaria) {
+        if (existeTabelaTributarioQueConflitaComOPeriodo(tabelaTarifaria.getDataVigenciaInicial(), tabelaTarifaria.getDataVigenciaFinal())) {
+            throw new PeriodoDeVigenciaInformadoConflitaComdeOutraTabelaTarifariaException();
+        }
         return this.tabelaTarifariaRepository.save(tabelaTarifaria);
+    }
+
+    private boolean existeTabelaTributarioQueConflitaComOPeriodo(LocalDate dataInicial, LocalDate dateFinal) {
+        return this.tabelaTarifariaRepository
+                .existsByDataVigenciaInicialLessThanEqualAndDataVigenciaFinalLessThanEqual(dataInicial, dateFinal);
     }
 
     public Optional<TabelaTarifaria> buscarTabelaTarifaria(Long id) {
