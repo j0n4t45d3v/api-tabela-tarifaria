@@ -28,7 +28,7 @@ public class TabelaTarifariaService {
 
     private boolean existeTabelaTributarioQueConflitaComOPeriodo(LocalDate dataInicial, LocalDate dateFinal) {
         return this.tabelaTarifariaRepository
-                .existsByDataVigenciaInicialLessThanEqualAndDataVigenciaFinalLessThanEqual(dataInicial, dateFinal);
+                .existsByDataVigenciaInicialLessThanEqualAndDataVigenciaFinalGreaterThanEqual(dateFinal, dataInicial);
     }
 
     public List<TabelaTarifaria> listarTabelasTarifarias() {

@@ -60,7 +60,7 @@ class TabelaTarifariaServiceTest {
         }
 
         private void mockExisteConflitoDePeriodoDeVigencia(boolean valor) {
-            when(tabelaTarifariaRepository.existsByDataVigenciaInicialLessThanEqualAndDataVigenciaFinalLessThanEqual(
+            when(tabelaTarifariaRepository.existsByDataVigenciaInicialLessThanEqualAndDataVigenciaFinalGreaterThanEqual(
                     ArgumentMatchers.any(LocalDate.class),
                     ArgumentMatchers.any(LocalDate.class)
             )).thenReturn(valor);

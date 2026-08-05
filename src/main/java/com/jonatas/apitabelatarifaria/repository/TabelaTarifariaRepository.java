@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface TabelaTarifariaRepository extends JpaRepository<TabelaTarifaria, Long> {
-    boolean existsByDataVigenciaInicialLessThanEqualAndDataVigenciaFinalLessThanEqual(LocalDate dataInicial, LocalDate dataFinal);
+    boolean existsByDataVigenciaInicialLessThanEqualAndDataVigenciaFinalGreaterThanEqual(LocalDate dataFinal, LocalDate dataInicial);
 
     @Query("""
         SELECT t
