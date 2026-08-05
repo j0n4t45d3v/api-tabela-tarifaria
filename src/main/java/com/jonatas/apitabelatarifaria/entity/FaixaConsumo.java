@@ -1,22 +1,12 @@
 package com.jonatas.apitabelatarifaria.entity;
 
-import java.math.BigDecimal;
-import java.util.Objects;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jonatas.apitabelatarifaria.dvo.DetalhamentoConsumoVO;
 import com.jonatas.apitabelatarifaria.infra.error.ValorInicialDaFaixaDeConsumoEhMaiorQueOValorFinalException;
+import jakarta.persistence.*;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.ColumnResult;
-import jakarta.persistence.ConstructorResult;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SqlResultSetMapping;
-import jakarta.persistence.Table;
+import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "faixas_consumo")
@@ -50,6 +40,7 @@ public class FaixaConsumo implements Comparable<FaixaConsumo>{
     @JoinColumn(name = "id_categoria")
     private CategoriaConsumidor categoriaConsumidor;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_tabela_tarifaria")
     private TabelaTarifaria tabelaTarifaria;

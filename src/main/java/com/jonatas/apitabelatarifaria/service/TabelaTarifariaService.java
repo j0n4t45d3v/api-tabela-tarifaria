@@ -7,6 +7,7 @@ import com.jonatas.apitabelatarifaria.repository.TabelaTarifariaRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,6 +29,10 @@ public class TabelaTarifariaService {
     private boolean existeTabelaTributarioQueConflitaComOPeriodo(LocalDate dataInicial, LocalDate dateFinal) {
         return this.tabelaTarifariaRepository
                 .existsByDataVigenciaInicialLessThanEqualAndDataVigenciaFinalLessThanEqual(dataInicial, dateFinal);
+    }
+
+    public List<TabelaTarifaria> listarTabelasTarifarias() {
+        return  this.tabelaTarifariaRepository.findTodasTabelasTarifarias();
     }
 
     public Optional<TabelaTarifaria> buscarTabelaTarifaria(Long id) {

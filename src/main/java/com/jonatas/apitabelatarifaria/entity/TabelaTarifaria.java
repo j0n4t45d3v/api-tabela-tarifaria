@@ -3,6 +3,7 @@ package com.jonatas.apitabelatarifaria.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "tabelas_tarifarias")
@@ -16,6 +17,9 @@ public class TabelaTarifaria {
     private LocalDate dataVigenciaInicial;
 
     private LocalDate dataVigenciaFinal;
+
+    @OneToMany(mappedBy = "tabelaTarifaria")
+    private Set<FaixaConsumo> faixasConsumo;
 
     public TabelaTarifaria() {
         this(null, null, null, null);
@@ -42,5 +46,9 @@ public class TabelaTarifaria {
 
     public LocalDate getDataVigenciaFinal() {
         return dataVigenciaFinal;
+    }
+
+    public Set<FaixaConsumo> getFaixasConsumo() {
+        return faixasConsumo;
     }
 }
