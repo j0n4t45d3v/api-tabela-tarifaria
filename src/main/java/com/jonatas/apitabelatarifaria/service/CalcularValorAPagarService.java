@@ -30,7 +30,7 @@ public class CalcularValorAPagarService {
         return new ValorAPagarResponse(
             request.categoria(), 
             faixasDeConsumo.stream().mapToInt(DetalhamentoConsumoVO::cobradoPorMetroCubico).sum(), 
-            faixasDeConsumo.stream().map(DetalhamentoConsumoVO::subtotal).reduce(BigDecimal::add).get(), 
+            faixasDeConsumo.stream().map(DetalhamentoConsumoVO::subtotal).reduce(BigDecimal::add).orElse(BigDecimal.ZERO),
             faixasDeConsumo.stream().map(ValorAPagarResponse.Detalhamento::of).toList()
         );
     }
