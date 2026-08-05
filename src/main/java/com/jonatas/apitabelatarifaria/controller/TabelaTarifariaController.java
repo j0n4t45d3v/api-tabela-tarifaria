@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Set;
+
 @RestController
 @RequestMapping("/tabelas-tarifarias")
 public class TabelaTarifariaController {
@@ -38,6 +40,12 @@ public class TabelaTarifariaController {
                 .buildAndExpand(tabelaTarifaria.getId())
                 .toUri();
         return ResponseEntity.created(localizacao).build();
+    }
+
+    @PostMapping("/lote")
+    public ResponseEntity<Void> criarEmLote(@RequestBody @Valid Set<CriarTabelaTarifariaRequest> request) {
+        this.criarTabelaTarifariaFachadaService.executar(request);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")

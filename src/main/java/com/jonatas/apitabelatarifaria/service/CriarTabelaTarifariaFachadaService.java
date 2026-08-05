@@ -1,11 +1,12 @@
 package com.jonatas.apitabelatarifaria.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.jonatas.apitabelatarifaria.dto.CriarTabelaTarifariaRequest;
 import com.jonatas.apitabelatarifaria.dto.TarifaCategoriaConsumoRequest;
 import com.jonatas.apitabelatarifaria.entity.TabelaTarifaria;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Set;
 
 @Service
 public class CriarTabelaTarifariaFachadaService {
@@ -22,6 +23,11 @@ public class CriarTabelaTarifariaFachadaService {
         this.tabelaTarifariaService = tabelaTarifariaService;
         this.categoriaConsumidorService = categoriaConsumidorService;
         this.faixaConsumoService = faixaConsumoService;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void executar(Set<CriarTabelaTarifariaRequest> requestLote) {
+        requestLote.forEach(this::executar);
     }
 
     @Transactional(rollbackFor = Exception.class)
