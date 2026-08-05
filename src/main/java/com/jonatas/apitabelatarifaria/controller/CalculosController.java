@@ -10,8 +10,10 @@ import com.jonatas.apitabelatarifaria.dto.CalcularValorAPagarRequest;
 import com.jonatas.apitabelatarifaria.dto.ValorAPagarResponse;
 import com.jonatas.apitabelatarifaria.service.CalcularValorAPagarService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Calculos")
 @RestController
 @RequestMapping("/calculos")
 public class CalculosController {

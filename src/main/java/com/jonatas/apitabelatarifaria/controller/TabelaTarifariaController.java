@@ -5,6 +5,7 @@ import com.jonatas.apitabelatarifaria.entity.TabelaTarifaria;
 import com.jonatas.apitabelatarifaria.service.CriarTabelaTarifariaFachadaService;
 import com.jonatas.apitabelatarifaria.service.TabelaTarifariaService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 import java.util.Set;
 
+@Tag(name = "Tabelas Tarifárias")
 @RestController
 @RequestMapping("/tabelas-tarifarias")
 public class TabelaTarifariaController {
