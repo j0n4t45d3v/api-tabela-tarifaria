@@ -49,17 +49,17 @@ public record ValorAPagarResponse(
         }
     }
 
-        public record Faixa(Integer inicio, Integer fim) {
-            @Override
-            public boolean equals(Object o) {
-                if (!(o instanceof Faixa faixa)) return false;
-                return Objects.equals(fim, faixa.fim) && Objects.equals(inicio, faixa.inicio);
-            }
-
-            @Override
-            public int hashCode() {
-                return Objects.hash(inicio, fim);
-            }
+    public record Faixa(Integer inicio, Integer fim) {
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof Faixa faixa)) return false;
+            return Objects.equals(fim, faixa.fim) && Objects.equals(inicio, faixa.inicio);
         }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(inicio, fim);
+        }
+    }
 
 }
