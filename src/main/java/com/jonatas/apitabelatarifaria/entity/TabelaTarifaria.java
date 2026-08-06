@@ -1,5 +1,6 @@
 package com.jonatas.apitabelatarifaria.entity;
 
+import com.jonatas.apitabelatarifaria.infra.error.DataVigenciaInicialEhMaiorQueAFinalException;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -26,10 +27,17 @@ public class TabelaTarifaria {
     }
 
     public TabelaTarifaria(Long id, String nome, LocalDate dataVigenciaInicial, LocalDate dataVigenciaFinal) {
+        validarPeriodoDeVigencia(dataVigenciaInicial, dataVigenciaFinal);
         this.id = id;
         this.nome = nome;
         this.dataVigenciaInicial = dataVigenciaInicial;
         this.dataVigenciaFinal = dataVigenciaFinal;
+    }
+
+    private void validarPeriodoDeVigencia(LocalDate dataInicial, LocalDate dataFinal) {
+        if (dataInicial != null && dataFinal != null && dataInicial.isAfter(dataFinal)) {
+            throw new DataVigenciaInicialEhMaiorQueAFinalException();
+        }
     }
 
     public Long getId() {
