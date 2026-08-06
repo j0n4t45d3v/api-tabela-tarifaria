@@ -5,6 +5,7 @@ import com.jonatas.apitabelatarifaria.dvo.DetalhamentoConsumoVO;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.Objects;
 
 public record ValorAPagarResponse(
     String categoria,
@@ -33,9 +34,32 @@ public record ValorAPagarResponse(
             );
         }
 
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof Detalhamento that)) return false;
+            return Objects.equals(faixa, that.faixa) &&
+                   Objects.equals(m3Cobrados, that.m3Cobrados) &&
+                   Objects.equals(subtotal, that.subtotal) &&
+                   Objects.equals(valorUnitario, that.valorUnitario);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(faixa, m3Cobrados, valorUnitario, subtotal);
+        }
     }
 
         public record Faixa(Integer inicio, Integer fim) {
+            @Override
+            public boolean equals(Object o) {
+                if (!(o instanceof Faixa faixa)) return false;
+                return Objects.equals(fim, faixa.fim) && Objects.equals(inicio, faixa.inicio);
+            }
+
+            @Override
+            public int hashCode() {
+                return Objects.hash(inicio, fim);
+            }
         }
 
 }
