@@ -27,8 +27,8 @@ public interface FaixaConsumoRepository extends JpaRepository<FaixaConsumo, Long
                     fc.valor_unitario, 
                     CASE 
                         WHEN LEAD(fc.id, 1) OVER (ORDER BY fc.de) IS NOT NULL THEN fc.ate
-                        ELSE (?3 - fc.de) + 1
-                    END AS cobrado_por_metro_cubico
+                        ELSE ?3
+                    END - COALESCE(LAG(fc.ate, 1) OVER (ORDER BY fc.de), 0) AS cobrado_por_metro_cubico
                 FROM
                     tabelas_tarifarias tt 
                 INNER JOIN
