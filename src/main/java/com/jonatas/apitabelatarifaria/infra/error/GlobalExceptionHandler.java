@@ -57,6 +57,7 @@ public class GlobalExceptionHandler {
         .body(erro);
     }
 
+    @ExceptionHandler({Exception.class})
     public ResponseEntity<Void> fallbackHandler(Exception ex) {
         log.error("Erro inesperado.", ex);
         return ResponseEntity.internalServerError().build();
