@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: api-tabela-tarifaria
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+  flyway:
+    enabled: true
