@@ -8,6 +8,19 @@
 
 ---
 
+## Tecnologias Usadas
+- Java 
+- PostgreSQL
+- Docker
+- Spring Boot 
+- Flyway (Migrations)
+- Springdoc (Documentação da API)
+- JUnit5 (Testes unitários)
+- Mockito
+- Testcontainers (Para fazer os testes das queries)
+
+---
+
 ## Baixando o Projeto
 - Clone esse repositório e entre na pasta:
 ```bash
